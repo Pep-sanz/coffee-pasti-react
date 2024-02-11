@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,800;1,500;1,600&display=swap");
+
+$font-poppins: "Poppins", sans-serif;
+$primary-color: #b6895b;
+$text-color: #f4fefd;
+$bg-primary: rgb(25, 25, 25);
+$bg-secoundry: rgba(126, 126, 126, 0.237);
+$text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+@mixin flex-box($justify, $align, $direction: row, $gap) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+* {
+  font-family: $font-poppins;
+  color: $text-color;
+}
+
+.cofee-pasti {
+  background-color: $bg-primary;
+}
+
+.my-navbar {
+  @include flex-box(space-between, center, row, 0);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 80px;
+  padding: 0 32px;
+  color: $text-color;
+  font-size: 16px;
+  background-color: $bg-primary;
+  z-index: 100;
+  .logo {
+    font-style: italic;
+    font-weight: 700;
+    span {
+      color: $primary-color;
+    }
+  }
+  .button-chakra {
+    background-color: transparent !important;
+    font-size: 20px !important;
+    line-height: 28px !important;
+  }
+}
+
+.drawer-content {
+  background-color: $bg-primary !important;
+}
+
+.custom-modal-content {
+  width: 80vw !important;
+  max-width: 800px !important;
+}
+
+.input-search {
+  color: $bg-primary;
+}
+
+.nav-responsive {
+  @include flex-box(start, start, column, 16px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: $bg-primary;
+  color: $text-color;
+  z-index: -50;
+  padding: 80px 16px 0 16px;
+  li {
+    padding-left: 16px;
+    border-bottom: 2px solid $primary-color;
+    width: 100%;
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.hero-section {
+  background-image: url(https://github.com/Pep-sanz/coffee-pasti/blob/main/assets/background.jpg?raw=true);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-shadow: $text-shadow;
+  .btn-buy-now {
+    color: $text-color !important;
+    background-color: $primary-color !important;
+    width: auto !important;
+    max-width: 150px !important;
+    padding: 16px !important;
+  }
+}
+
+.menu-section {
+  @include flex-box(start, center, column, 0);
+  background-color: $bg-primary;
+  padding: 80px 16px 0 16px;
+  width: 100vw;
+  height: 100vh;
+  .header {
+    @include flex-box(center, center, column, 0);
+    width: 100%;
+    text-align: center;
+    h5 {
+      span {
+        color: $primary-color;
+      }
+    }
+  }
+  .category {
+    @include flex-box(start, center, row, 16px);
+    position: sticky;
+    left: 0;
+    right: 0;
+    background-color: $primary-color;
+    width: 100%;
+    height: 40px;
+    padding: 0 8px;
+  }
+}
+
+.card-body p {
+  color: $bg-primary;
+}
