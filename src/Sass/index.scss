@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,800;1,500;1,600&display=swap");
 
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 $font-poppins: "Poppins", sans-serif;
 $primary-color: #b6895b;
 $text-color: #f4fefd;
@@ -17,11 +21,37 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 * {
   font-family: $font-poppins;
-  color: $text-color;
 }
 
 .cofee-pasti {
   background-color: $bg-primary;
+}
+
+.button-antd {
+  color: $text-color;
+  background-color: transparent !important;
+  border: none !important;
+  &:hover {
+    color: $primary-color !important;
+  }
+}
+
+.ant-card {
+  .ant-card-cover {
+    border-radius: 0 !important;
+  }
+  .ant-card-body {
+    color: $bg-primary;
+    padding: 8px !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+  }
+}
+
+.ant-drawer-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .my-navbar {
@@ -31,7 +61,7 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   left: 0;
   width: 100vw;
   height: 80px;
-  padding: 0 32px;
+  padding: 0 24px;
   color: $text-color;
   font-size: 16px;
   background-color: $bg-primary;
@@ -43,20 +73,6 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       color: $primary-color;
     }
   }
-  .button-chakra {
-    background-color: transparent !important;
-    font-size: 20px !important;
-    line-height: 28px !important;
-  }
-}
-
-.drawer-content {
-  background-color: $bg-primary !important;
-}
-
-.custom-modal-content {
-  width: 80vw !important;
-  max-width: 800px !important;
 }
 
 .input-search {
@@ -85,26 +101,27 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-section {
-  background-image: url(https://github.com/Pep-sanz/coffee-pasti/blob/main/assets/background.jpg?raw=true);
+  background-image: url(../assets/background.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  color: $text-color;
   text-shadow: $text-shadow;
   .btn-buy-now {
     color: $text-color !important;
     background-color: $primary-color !important;
     width: auto !important;
     max-width: 150px !important;
-    padding: 16px !important;
+    border: none;
   }
 }
 
 .menu-section {
   @include flex-box(start, center, column, 0);
+  color: $text-color;
   background-color: $bg-primary;
   padding: 80px 16px 0 16px;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   .header {
     @include flex-box(center, center, column, 0);
     width: 100%;
@@ -117,7 +134,9 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
   .category {
     @include flex-box(start, center, row, 16px);
-    position: sticky;
+    position: sticky !important;
+    top: 80px;
+    z-index: 40;
     left: 0;
     right: 0;
     background-color: $primary-color;
@@ -125,8 +144,4 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     height: 40px;
     padding: 0 8px;
   }
-}
-
-.card-body p {
-  color: $bg-primary;
 }

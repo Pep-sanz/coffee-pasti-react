@@ -1,10 +1,49 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { postDataToCart, productsApi } from "../store/fetchApi";
+import { setCategory } from "../store/slice/productSlice";
+// import { addToCart } from "../store/slice/cartSlice";
+import numeral from "numeral";
 import MyCard from "../components/MyCard";
 
 const kategoriMenu = ["All Menu", "EspressoBased", "Iced Coffees", "Blended Drinks", "Flavored Coffees"];
 
 export default function MenuSection() {
+  const { products, headerCategory, filterProducts, status, error } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  numeral.locale("id");
+
+  useEffect(() => {
+    dispatch(productsApi());
+  }, [dispatch]);
+
+  const handleClickCategory = (item) => {
+    dispatch(setCategory(item));
+  };
+
+  const handleAddToCart = (event, id) => {
+    event.stopPropagation();
+    products.filter((res) => {
+      if (res.id === id) {
+        dispatch(postDataToCart(res));
+        console.log(res.rating.rate);
+      }
+    });
+  };
+
+  const renderProducts = filterProducts.length > 0 ? filterProducts : products;
+
+  if (status === "loading") {
+    return <div className="">loading</div>;
+  }
+
+  if (status === "rejected") {
+    return <div>error: {error}</div>;
+  }
+
   return (
-    <section className="menu-section">
+    <section className="menu-section overflow-hidden">
       <div className="header">
         <h5 className="text-[1.5rem]">
           <span>Menu</span> Kami
@@ -17,40 +56,21 @@ export default function MenuSection() {
           <div className="overflow-x-auto md:w-full">
             <ul className="flex justify-between items-center w-[700px] md:w-full px-0 sm:px-6 lg:px-10">
               {kategoriMenu.map((item, i) => (
-                <li key={i} className="">
+                <li key={i} className="" onClick={() => handleClickCategory(item)}>
                   {item}
                 </li>
               ))}
             </ul>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center gap-8 bg-red-500 w-full mt-10 ">
-          <h5 className="text-start w-full">All Menu</h5>
-          <div className=" grid grid-cols-2 gap-3">
-            <MyCard
-              cardContent={
-                <div>
-                  <h5 className="">ini adalah card content</h5>
-                </div>
-              }
-              footerContent={
-                <div>
-                  <h5>ini adalah footer card</h5>
-                </div>
-              }
-            />
-            <MyCard
-              cardContent={
-                <div>
-                  <h5>ini adalah card content</h5>
-                </div>
-              }
-              footerContent={
-                <div>
-                  <h5>ini adalah footer card</h5>
-                </div>
-              }
-            />
+        <div className="flex flex-col justify-center items-center gap-8 w-full mt-10 ">
+          {/* Header Category */}
+          <h5 className="text-start w-full">{headerCategory}</h5>
+          {/* Menu Content */}
+          <div className=" grid grid-cols-2 gap-2 text-sm md:grid-cols-3 lg:grid-cols-4">
+            {renderProducts.map((item) => (
+              <MyCard key={item.id} cardImage={item.poster} cardTitle={item.title} cardIcon={true} price={item.price} rating={item.rating.rate} handleAddToCart={handleAddToCart} />
+            ))}
           </div>
         </div>
       </div>

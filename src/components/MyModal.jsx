@@ -1,13 +1,8 @@
-import React from "react";
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure } from "@chakra-ui/react";
-
-const MyModal = ({ isOpen, onClose, modalBody }) => {
+import { Modal } from "antd";
+const MyModal = ({ open, onOk, onCancel, modalBody }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
-      <ModalOverlay />
-      <ModalContent className="custom-modal-content">
-        <ModalBody>{modalBody}</ModalBody>
-      </ModalContent>
+    <Modal open={open} onOk={onOk} onCancel={onCancel} closable={false} footer={null} motionPreset="slideInBottom" className="!w-screen !max-w-[90vw] sm:!max-w-[80vw]">
+      <div>{modalBody}</div>
     </Modal>
   );
 };

@@ -1,12 +1,10 @@
-import "./Sass/index.scss";
-import HeroSection from "./pages/HeroSection";
-import MenuSection from "./pages/MenuSection";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
 
 function App() {
   return (
     <div className="coffee-pasti">
-      <HeroSection />
-      <MenuSection />
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }

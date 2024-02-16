@@ -1,5 +1,5 @@
-import { Button } from "@chakra-ui/react";
 import MyNavbar from "../components/MyNavbar";
+import { Button } from "antd";
 
 export default function HeroSection() {
   return (
