@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../auth/firebaseCofig";
+import { db } from "../auth/firebaseConfig";
 
 const baseUrl = "https://coffee-pasti-default-rtdb.firebaseio.com";
 
