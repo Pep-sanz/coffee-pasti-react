@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getDataCarts } from "../fetchApi";
 
 export const cartSlice = createSlice({
   name: "cartSlice",
@@ -10,21 +9,11 @@ export const cartSlice = createSlice({
     quantity: 0,
     total: 0,
   },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(getDataCarts.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(getDataCarts.fulfilled, (state, action) => {
-        state.status = "succesed";
-        state.cart = action.payload;
-      })
-      .addCase(getDataCarts.rejected, (state, action) => {
-        state.status = "rejected";
-        state.error = action.error.message;
-      });
+  reducers: {
+    addProductsToCart : (state, actions)=>{
+      
+    }
   },
 });
 
-export const { addProductStart, addProductSuccess, addProductFailure } = cartSlice.actions;
+export const { } = cartSlice.actions;

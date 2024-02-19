@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Drawer} from "antd";
 import { useEffect } from "react";
-import { getDataCarts } from "../store/fetchApi";
 
 // eslint-disable-next-line react/prop-types
 export default function CartSection({ open, onClose }) {
@@ -9,9 +8,6 @@ export default function CartSection({ open, onClose }) {
   const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getDataCarts());
-  }, [dispatch]);
 
   // const handleIncrement = (id) => {
   //   products.filter((res) => {

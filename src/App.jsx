@@ -1,10 +1,20 @@
-import { RouterProvider } from "react-router-dom";
-import { router } from "./router";
+import FormLogin from "./components/FormLogin";
+import FormRegister from "./components/FormRegister";
+import HeroSection from "./pages/HeroSection";
+import MenuSection from "./pages/MenuSection";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="coffee-pasti">
-      <RouterProvider router={router}></RouterProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HeroSection />} />
+          <Route path="/register" element={<FormRegister />} />
+          <Route path="/login" element={<FormLogin />} />
+          <Route path="/menu" element={<MenuSection />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

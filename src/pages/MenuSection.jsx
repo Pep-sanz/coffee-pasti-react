@@ -5,6 +5,7 @@ import { setCategory } from "../store/slice/productSlice";
 // import { addToCart } from "../store/slice/cartSlice";
 import numeral from "numeral";
 import MyCard from "../components/MyCard";
+import MyNavbar from "../components/MyNavbar";
 
 const kategoriMenu = ["All Menu", "EspressoBased", "Iced Coffees", "Blended Drinks", "Flavored Coffees"];
 
@@ -44,6 +45,7 @@ export default function MenuSection() {
 
   return (
     <section className="menu-section overflow-hidden">
+      <MyNavbar />
       <div className="header">
         <h5 className="text-[1.5rem]">
           <span>Menu</span> Kami

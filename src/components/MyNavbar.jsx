@@ -6,6 +6,8 @@ import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { getSearchValue } from "../store/slice/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import MyCard from "./MyCard";
+import { Link } from "react-router-dom";
+import User from "./User";
 
 const navbarContent = [
   { label: "Home", href: "/", logo: "" },
@@ -46,22 +48,25 @@ export default function MyNavbar() {
     setOpen(false);
   };
 
+  
+
   return (
     <>
       <nav className="my-navbar">
         <div className="logo text-2xl sm:text-3xl">
-          <a href="#">
+          <Link to="/">
             <span>Coffee</span> Pasti
-          </a>
+          </Link>
         </div>
         <ul className=" hidden md:flex justify-between items-center w-1/2 transition-all duration-300 ease-in-out ">
           {navbarContent.map((item, i) => (
             <li key={i} className="font-medium hover:text-primary-color active:text-primary-color">
-              <a href={item.href}>{item.label}</a>
+              <Link to={item.href}>{item.label}</Link>
             </li>
           ))}
         </ul>
         <div className="flex items-center">
+          <User />
           <Button className="button-antd text-lg" onClick={showDrawer}>
             <FaShoppingCart />
           </Button>
@@ -91,6 +96,7 @@ export default function MyNavbar() {
             <span className={`block w-full h-1 bg-white rounded transition-all duration-300 ease-in-out ${isMenuShow ? "origin-top-left bg-black -rotate-45 -translate-x-[1px] translate-y-[2px] " : ""}`} />
           </div>
         </div>
+        {/* responsive navigasi */}
         <ul
           className=" nav-responsive transition-all duration-300 ease-in-out "
           style={{
@@ -99,7 +105,7 @@ export default function MyNavbar() {
         >
           {navbarContent.map((item, i) => (
             <li key={i} onClick={handleShowMenu}>
-              <a href={item.href}>{item.label}</a>
+              <Link to={item.href}>{item.label}</Link>
             </li>
           ))}
         </ul>

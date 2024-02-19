@@ -8,7 +8,7 @@ $font-poppins: "Poppins", sans-serif;
 $primary-color: #b6895b;
 $text-color: #f4fefd;
 $bg-primary: rgb(25, 25, 25);
-$bg-secoundry: rgba(126, 126, 126, 0.237);
+$bg-secoundry: rgba(72, 72, 72, 0.616);
 $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 @mixin flex-box($justify, $align, $direction: row, $gap) {
@@ -27,6 +27,13 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   background-color: $bg-primary;
 }
 
+// antd popover
+.ant-popover-inner {
+  min-width: 300px !important;
+  height: 150px !important;
+}
+
+// antd button
 .button-antd {
   color: $text-color;
   background-color: transparent !important;
@@ -36,6 +43,7 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 }
 
+// antd Cart
 .ant-card {
   .ant-card-cover {
     border-radius: 0 !important;
@@ -48,6 +56,7 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 }
 
+// antd drawer
 .ant-drawer-body {
   display: flex;
   flex-direction: column;
@@ -97,6 +106,10 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     &:hover {
       color: $primary-color;
     }
+    a {
+      display: inline-block;
+      width: 100% !important;
+    }
   }
 }
 
@@ -143,5 +156,37 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 40px;
     padding: 0 8px;
+  }
+}
+
+.contener-form {
+  background-image: url(../assets/background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .ant-form {
+    width: 100vw !important;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: $text-color;
+    background-color: $bg-secoundry;
+    backdrop-filter: blur(10px);
+    .ant-form-item-label {
+      label {
+        color: $text-color;
+      }
+    }
+    .ant-input {
+      // color:  !important;
+      &::placeholder {
+        color: $bg-primary !important;
+      }
+    }
+    .ant-btn {
+      outline: none !important;
+      border: none !important;
+      color: $text-color !important;
+      background-color: $primary-color;
+    }
   }
 }

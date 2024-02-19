@@ -1,7 +1,21 @@
+import { useEffect, useState } from "react";
 import MyNavbar from "../components/MyNavbar";
 import { Button } from "antd";
+import { auth } from "../auth/firebaseConfig";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (!currentUser) {
+        navigate("/login");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <>
       <section className="w-full h-screen hero-section px-6">
@@ -13,7 +27,9 @@ export default function HeroSection() {
               <span className="text-primary-color">Coffee</span> <span>Pasti</span>
             </p>
           </div>
-          <Button className="btn-buy-now">Beli Sekarang</Button>
+          <Link to={"/menu"}>
+            <Button className="btn-buy-now">Beli Sekarang</Button>
+          </Link>
         </div>
       </section>
     </>

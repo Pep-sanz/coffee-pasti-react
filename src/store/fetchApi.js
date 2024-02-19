@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../auth/firebaseConfig";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { auth, db } from "../auth/firebaseConfig";
 
 const baseUrl = "https://coffee-pasti-default-rtdb.firebaseio.com";
 
@@ -14,12 +14,19 @@ export const productsApi = createAsyncThunk("products/productsApi", async (_, da
   }
 });
 
-export const getDataCarts = createAsyncThunk("data/getDataCart", async () => {
+export const getDataUser = createAsyncThunk("data/getDataUser", async () => {
   // eslint-disable-next-line no-useless-catch
   try {
-    const response = await fetch(`${baseUrl}/cart.json`);
-    const products = await response.json();
-    return products;
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("anda belum login");
+    }
+    const userDocRef = doc(db, "users", user.uid);
+    const userDocSnapshot = await getDoc(userDocRef);
+    if (!userDocSnapshot.exists()) {
+      throw new Error("data tidak di temukan");
+    }
+    return [{ id: userDocSnapshot.id, ...userDocSnapshot.data() }];
   } catch (err) {
     throw err;
   }

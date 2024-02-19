@@ -18,16 +18,18 @@ numeral.register("locale", "id", {
   },
 });
 
+const initialState = {
+  products: [],
+  headerCategory: "All Menu",
+  filterProducts: [],
+  search: [],
+  loading: false,
+  error: null,
+};
+
 export const productsSlice = createSlice({
   name: "productSlice",
-  initialState: {
-    products: [],
-    filterProducts: [],
-    search: [],
-    headerCategory: "All Menu",
-    status: "idle",
-    error: null,
-  },
+  initialState,
   reducers: {
     setCategory: (state, action) => {
       state.headerCategory = action.payload;
@@ -51,15 +53,15 @@ export const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(productsApi.pending, (state) => {
-        state.status = "loading";
+        state.loading = true;
       })
       .addCase(productsApi.fulfilled, (state, action) => {
-        state.status = "succesed";
+        state.loading = false;
         state.products = action.payload;
       })
       .addCase(productsApi.rejected, (state, action) => {
-        state.status = "rejected";
-        state.error = action.error.message;
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

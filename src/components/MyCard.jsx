@@ -2,6 +2,7 @@ import { Card, Rate } from "antd";
 import numeral from "numeral";
 import { FaShoppingCart, FaRegHeart } from "react-icons/fa";
 
+// eslint-disable-next-line react/prop-types
 export default function MyCard({ cardTitle, cardImage, id, price, rating, cardIcon, handleAddToCart }) {
   return (
     <>
