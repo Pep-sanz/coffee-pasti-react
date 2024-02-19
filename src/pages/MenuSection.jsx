@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { postDataToCart, productsApi } from "../store/fetchApi";
+import { productsApi } from "../store/fetchApi";
 import { setCategory } from "../store/slice/productSlice";
 // import { addToCart } from "../store/slice/cartSlice";
 import numeral from "numeral";
 import MyCard from "../components/MyCard";
 import MyNavbar from "../components/MyNavbar";
+import { postDataToCart } from "../store/postData";
 
 const kategoriMenu = ["All Menu", "EspressoBased", "Iced Coffees", "Blended Drinks", "Flavored Coffees"];
 
@@ -17,6 +18,7 @@ export default function MenuSection() {
 
   useEffect(() => {
     dispatch(productsApi());
+    postDataToCart();
   }, [dispatch]);
 
   const handleClickCategory = (item) => {
@@ -27,9 +29,8 @@ export default function MenuSection() {
     event.stopPropagation();
     products.filter((res) => {
       if (res.id === id) {
-        dispatch(postDataToCart(res));
-        console.log(res.rating.rate);
-      }
+        postDataToCart(res.id, res, res.price);
+      } 
     });
   };
 
@@ -71,7 +72,7 @@ export default function MenuSection() {
           {/* Menu Content */}
           <div className=" grid grid-cols-2 gap-2 text-sm md:grid-cols-3 lg:grid-cols-4">
             {renderProducts.map((item) => (
-              <MyCard key={item.id} cardImage={item.poster} cardTitle={item.title} cardIcon={true} price={item.price} rating={item.rating.rate} handleAddToCart={handleAddToCart} />
+              <MyCard key={item.id} cardImage={item.poster} cardTitle={item.title} cardIcon={true} price={item.price} rating={item.rating.rate} handleAddToCart={(e) => handleAddToCart(e, item.id)} />
             ))}
           </div>
         </div>

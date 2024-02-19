@@ -2,8 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { auth, db } from "../auth/firebaseConfig";
 
-const baseUrl = "https://coffee-pasti-default-rtdb.firebaseio.com";
-
 export const productsApi = createAsyncThunk("products/productsApi", async (_, dataRejected) => {
   try {
     const response = await getDocs(collection(db, "menu"));
@@ -17,6 +15,15 @@ export const productsApi = createAsyncThunk("products/productsApi", async (_, da
 export const getDataUser = createAsyncThunk("data/getDataUser", async () => {
   // eslint-disable-next-line no-useless-catch
   try {
+    await new Promise((resolve) => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          unsubscribe();
+          resolve();
+        }
+      });
+    });
+
     const user = auth.currentUser;
     if (!user) {
       throw new Error("anda belum login");
@@ -32,22 +39,30 @@ export const getDataUser = createAsyncThunk("data/getDataUser", async () => {
   }
 });
 
-export const postDataToCart = createAsyncThunk("data/postDataToCart", async (product) => {
-  // eslint-disable-next-line no-useless-catch
+export const getCartProducts = createAsyncThunk("cartData/getCartProducts", async () => {
   try {
-    const response = await fetch(`${baseUrl}/cart.json`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(product),
+    await new Promise((resolve) => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          unsubscribe();
+          resolve(user);
+        }
+      });
     });
-    if (!response.ok) {
-      throw new Error("Gagal menambahkan produk ke cart");
+
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("anda belum login");
     }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
+    const userCartRef = collection(db, "users", user.uid, "cart");
+    const querySnapshot = await getDocs(userCartRef);
+    const cartProducts = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+    if (!querySnapshot.docs.length === 0) {
+      throw new Error("gagal memuat data");
+    }
+    return cartProducts;
+  } catch (err) {
+    console.log(err);
+    throw err;
   }
 });

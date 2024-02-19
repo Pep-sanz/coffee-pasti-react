@@ -11,11 +11,10 @@ export default function User() {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [popverOpen, setPoverOpen] = useState(false);
-  const user = auth.currentUser;
 
   useEffect(() => {
     dispatch(getDataUser());
-  }, [user]);
+  }, [dispatch]);
 
   const handlePoperChange = (newOpen) => {
     setPoverOpen(newOpen);
@@ -34,9 +33,6 @@ export default function User() {
             ))}
           </ul>
           <div className="flex gap-3 justify-end">
-            <Link to="/login">
-              <Button>Masuk</Button>
-            </Link>
             <Link>
               <Button onClick={handleLogOut}>Keluar</Button>
             </Link>
