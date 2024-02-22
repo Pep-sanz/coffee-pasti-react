@@ -4,7 +4,7 @@ import { getDataUser } from "../fetchApi";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    currentUser: [],
+    user: [],
     loading: false,
     error: null,
   },

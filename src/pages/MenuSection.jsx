@@ -6,19 +6,20 @@ import { setCategory } from "../store/slice/productSlice";
 import numeral from "numeral";
 import MyCard from "../components/MyCard";
 import MyNavbar from "../components/MyNavbar";
-import { postDataToCart } from "../store/postData";
+import { postDataToCart } from "../utils/postDataToCart";
 
 const kategoriMenu = ["All Menu", "EspressoBased", "Iced Coffees", "Blended Drinks", "Flavored Coffees"];
 
 export default function MenuSection() {
   const { products, headerCategory, filterProducts, status, error } = useSelector((state) => state.products);
+  const { currentUser } = useSelector((state) => state.user);
+  const userId = currentUser.id;
   const dispatch = useDispatch();
 
   numeral.locale("id");
 
   useEffect(() => {
     dispatch(productsApi());
-    postDataToCart();
   }, [dispatch]);
 
   const handleClickCategory = (item) => {
@@ -27,11 +28,10 @@ export default function MenuSection() {
 
   const handleAddToCart = (event, id) => {
     event.stopPropagation();
-    products.filter((res) => {
-      if (res.id === id) {
-        postDataToCart(res.id, res, res.price);
-      } 
-    });
+    const selectedProducts = products.find((product) => product.id === id);
+    if (selectedProducts) {
+      postDataToCart(userId, id, selectedProducts, selectedProducts.price);
+    }
   };
 
   const renderProducts = filterProducts.length > 0 ? filterProducts : products;

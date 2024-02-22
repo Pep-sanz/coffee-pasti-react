@@ -30,7 +30,7 @@ $text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 // antd popover
 .ant-popover-inner {
   min-width: 300px !important;
-  height: 150px !important;
+  min-height: 150px !important;
 }
 
 // antd button

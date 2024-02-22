@@ -3,10 +3,10 @@ import numeral from "numeral";
 import { FaShoppingCart, FaRegHeart } from "react-icons/fa";
 
 // eslint-disable-next-line react/prop-types
-export default function MyCard({ cardTitle, cardImage, id, price, rating, cardIcon, handleAddToCart }) {
+export default function MyCard({ className, cardTitle, cardImage, id, price, rating, cardIcon, handleAddToCart, imageStyle, count }) {
   return (
     <>
-      <Card cover={<img src={cardImage} alt="products" />}>
+      <Card cover={<img src={cardImage} alt="products " className={imageStyle} />} className={className}>
         <div className="flex flex-col justify-center items-center gap-3 md:gap-6 mb-3 ">
           <p>{cardTitle}</p>
           <div className="w-full flex flex-col gap-3 ">{numeral(price).format("$0,0")}</div>
@@ -20,6 +20,7 @@ export default function MyCard({ cardTitle, cardImage, id, price, rating, cardIc
             <FaRegHeart />
           </div>
         </div>
+        {count}
       </Card>
     </>
   );

@@ -1,14 +1,9 @@
 import { collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../auth/firebaseConfig";
+import { db } from "../auth/firebaseConfig";
 
-export const postDataToCart = async (itemId, itemCart, price) => {
+export const postDataToCart = async (userId, itemId, itemCart, price) => {
   try {
-    const user = auth.currentUser;
-    if (!user) {
-      throw new Error("anda belum login");
-    }
-
-    const dataUserRef = doc(db, "users", user.uid);
+    const dataUserRef = doc(db, "users", userId);
     const cartRef = collection(dataUserRef, "cart");
     const querySnapshot = await getDocs(cartRef);
     const cart = querySnapshot.docs.find((doc) => doc.id === itemCart.id);

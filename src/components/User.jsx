@@ -8,12 +8,20 @@ import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 
 export default function User() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [popverOpen, setPoverOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(getDataUser());
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(getDataUser(user.uid));
+      } else {
+        console.log("Anda belum login");
+      }
+    });
+
+    return () => unsubscribe();
   }, [dispatch]);
 
   const handlePoperChange = (newOpen) => {
@@ -26,11 +34,10 @@ export default function User() {
   return (
     <Popover
       content={
-        <div className="w-full h-full flex flex-col gap-8">
+        <div className="w-full h-full flex flex-col gap-3">
           <ul>
-            {currentUser.map((res) => (
-              <li key={res.id}>User Name : {res.userName}</li>
-            ))}
+            <li>User Name : {user.userName}</li>
+            <li>Email : {user.email}</li>
           </ul>
           <div className="flex gap-3 justify-end">
             <Link>

@@ -11,7 +11,7 @@ export default function FormLogin() {
     await setPersistence(auth, browserSessionPersistence)
       .then(async () => {
         await signInWithEmailAndPassword(auth, email, password);
-        message.success(`hallo user`);
+        message.success(`Selamat datang di Coffee Pasti`);
         navigate("/");
       })
       .catch((error) => {

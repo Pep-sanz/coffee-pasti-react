@@ -18,7 +18,7 @@ export default function FormRegister() {
       navigate("/login");
       const userCollectionRef = collection(db, "users");
       const userDocRef = doc(userCollectionRef, user.uid);
-      await setDoc(userDocRef, { userName, email });
+      await setDoc(userDocRef, { userName, email, id: user.uid });
     } catch (error) {
       console.log(error.message);
       message.error({
